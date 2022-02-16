@@ -45,3 +45,12 @@
     <small class="invalid-feedback">{{ $message }}</small>
   @enderror
 </div>
+<div class="form-group">
+  <label>Role</label>
+  @foreach($roles as $role)
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" name="roles[]" id="{{ $role->id }}" value="{{ $role->id }}" class="custom-control-input">
+      <label for="{{ $role->id }}" class="custom-control-label">{{ $role->name }}</label>
+    </div>
+  @endforeach
+</div>
