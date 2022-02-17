@@ -49,7 +49,7 @@
   <label>Role</label>
   @foreach($roles as $role)
     <div class="custom-control custom-checkbox">
-      <input type="checkbox" name="roles[]" id="{{ $role->id }}" value="{{ $role->id }}" class="custom-control-input">
+      <input type="checkbox" name="roles[]" id="{{ $role->id }}" @isset($employee->roles) @foreach($employee->roles as $employee_role) @if($employee_role->id === $role->id) checked @endif @endforeach @endisset value="{{ $role->id }}" class="custom-control-input">
       <label for="{{ $role->id }}" class="custom-control-label">{{ $role->name }}</label>
     </div>
   @endforeach

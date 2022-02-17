@@ -85,7 +85,8 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $companies = Company::all();
-        return view('employees.edit', compact('employee', 'companies'));
+        $roles = Role::all();
+        return view('employees.edit', compact('employee', 'companies', 'roles'));
     }
 
     /**
@@ -107,6 +108,16 @@ class EmployeeController extends Controller
         $employee->company_id = $req['company_id'];
 
         $employee->save();
+
+        $roles_id = $req['roles'];
+        $roles = [];
+
+        foreach($roles_id as $role_id){
+            $role = Role::findOrFail($role_id);
+            array_push($roles, $role->id);
+        }
+
+        $employee->roles()->sync($roles);
 
         return redirect()->route('employees.index');
     }
