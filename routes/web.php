@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
-use App\Models\Employee;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +20,4 @@ use App\Models\Employee;
 Route::get('/', [HomeController::class, 'index']);
 Route::resource('/companies', CompanyController::class);
 Route::resource('/employees', EmployeeController::class);
+Route::resource('/roles', RoleController::class);

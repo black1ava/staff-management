@@ -6,6 +6,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Http\Requests\EmployeeStoreRequest;
+use App\Models\Role;
 
 class EmployeeController extends Controller
 {
@@ -29,7 +30,9 @@ class EmployeeController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('employees.create', compact('companies'));
+        $roles = Role::all();
+
+        return view('employees.create', compact('companies', 'roles'));
     }
 
     /**
@@ -51,6 +54,13 @@ class EmployeeController extends Controller
 
         $company = Company::findOrFail($req['company_id']);
         $company->employees()->save($employee);
+
+        $roles_id = $req['roles'];
+
+        foreach($roles_id as $role_id){
+            $role = Role::findOrFail($role_id);
+            $employee->roles()->attach($role);
+        }
 
         return redirect()->route('employees.index');
     }
@@ -75,7 +85,8 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $companies = Company::all();
-        return view('employees.edit', compact('employee', 'companies'));
+        $roles = Role::all();
+        return view('employees.edit', compact('employee', 'companies', 'roles'));
     }
 
     /**
@@ -97,6 +108,16 @@ class EmployeeController extends Controller
         $employee->company_id = $req['company_id'];
 
         $employee->save();
+
+        $roles_id = $req['roles'];
+        $roles = [];
+
+        foreach($roles_id as $role_id){
+            $role = Role::findOrFail($role_id);
+            array_push($roles, $role->id);
+        }
+
+        $employee->roles()->sync($roles);
 
         return redirect()->route('employees.index');
     }

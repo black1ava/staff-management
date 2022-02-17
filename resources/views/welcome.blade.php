@@ -10,6 +10,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Employee Name</th>
+                        <th>Roles</th>
                         <th>Phone number</th>
                         <th>Email</th>
                         <th>Address</th>
@@ -22,6 +23,18 @@
                         <td>{{ $employee->id }}</td>
                         <td>
                             <a href="{{ route('employees.show', $employee) }}" class="card-link">{{ $employee->name }}</a>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                                Roles
+                            </button>
+                            <ul class="dropdown-menu">
+                                @foreach($employee->roles as $employee_role)
+                                <li class="dropdown-item">{{ $employee_role->name }}</li>
+                                @endforeach
+                            </ul>
+                            </div>
                         </td>
                         <td>{{ $employee->phone }}</td>
                         <td>{{ $employee->email }}</td>
