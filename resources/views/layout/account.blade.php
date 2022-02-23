@@ -17,35 +17,16 @@
       <spa class="navbar-toggler-icon"></spa>
     </button>
     <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav">
-        @auth
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a href="/" class="nav-link">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('companies.index') }}" class="nav-link">Companies</a>
+          <a href="{{ route('login.form') }}" class="nav-link">Login</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('employees.index') }}" class="nav-link">Employees</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('roles.index') }}" class="nav-link">Roles</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout').submit();">Logout</a>
-          <form action="{{ route('logout') }}" method="post" id="logout">
-            @csrf
-            @method('delete')
-          </form>
-        </li>
-        @else
-          <li class="nav-item">
-            <a href="{{ route('login') }}" class="nav-link">Login</a>
-          </li>
-          <li class="nav-item">
           <a href="{{ route('register.form') }}" class="nav-link">Register</a>
-          </li>
-        @endauth
+        </li>
       </ul>
     </div>
   </div>

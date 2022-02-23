@@ -5,6 +5,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,14 @@ use App\Http\Controllers\RoleController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::resource('/companies', CompanyController::class);
 Route::resource('/employees', EmployeeController::class);
 Route::resource('/roles', RoleController::class);
+Route::prefix('account')->group(function(){
+  Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
+  Route::post('/register', [RegisterController::class, 'register'])->name('account.register');
+  Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+  Route::post('/login', [LoginController::class, 'login']);
+  Route::delete('/logout', [LogoutController::class, 'logout'])->name('logout');
+});
